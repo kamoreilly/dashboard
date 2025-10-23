@@ -28,6 +28,7 @@
     "hono": "catalog:",
     "dotenv": "catalog:",
     "zod": "catalog:",
+    "drizzle-orm": "catalog:",
     "@dashboard/db": "workspace:*"
   }
 }

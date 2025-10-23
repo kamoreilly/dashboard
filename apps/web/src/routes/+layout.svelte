@@ -3,17 +3,19 @@
     import { SvelteQueryDevtools } from '@tanstack/svelte-query-devtools'
 	import '../app.css';
     import { queryClient } from '$lib/orpc';
-    import Header from '../components/Header.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 
 	let { children } = $props();
 </script>
 
 <QueryClientProvider client={queryClient}>
-    <div class="grid h-svh grid-rows-[auto_1fr]">
-		<Header />
-		<main class="overflow-y-auto">
-			{@render children()}
-		</main>
+    <div class="min-h-screen flex flex-col">
+        <Header />
+        <main class="flex-1">
+            {@render children()}
+        </main>
+        <Footer />
     </div>
     <SvelteQueryDevtools />
 </QueryClientProvider>
