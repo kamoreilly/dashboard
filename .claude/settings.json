@@ -1,0 +1,99 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Read(**/*.ts)",
+      "Read(**/*.tsx)",
+      "Read(**/*.js)",
+      "Read(**/*.jsx)",
+      "Read(**/*.json)",
+      "Read(**/*.md)",
+      "Read(**/*.sql)",
+      "Read(**/*.yml)",
+      "Read(**/*.yaml)",
+      "Glob(**/*)",
+      "Grep(**/*)"
+    ],
+    "ask": [
+      "Bash(bun:*)",
+      "Bash(npm:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(cp:*)",
+      "Bash(rm:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(bun install:*)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Edit(**/*.ts)",
+      "Edit(**/*.tsx)",
+      "Edit(**/*.js)",
+      "Edit(**/*.jsx)",
+      "Edit(**/*.json)",
+      "Edit(**/*.md)",
+      "Write(**/*.ts)",
+      "Write(**/*.tsx)",
+      "Write(**/*.js)",
+      "Write(**/*.jsx)",
+      "Write(**/*.json)",
+      "Write(**/*.md)",
+      "Read(**/.env)",
+      "Read(**/secrets/**)",
+      "Read(**/private/**)"
+    ],
+    "deny": [
+      "Read(./node_modules/**)",
+      "Read(./dist/**)",
+      "Read(./build/**)",
+      "Read(./.git/**)",
+      "Bash(rm -rf node_modules)",
+      "Bash(rm -rf .git)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "agents": {
+    "autoInvoke": true
+  },
+  "ui": {
+    "theme": "dark",
+    "fontSize": 14,
+    "tabSize": 2,
+    "wordWrap": true,
+    "minimap": false,
+    "lineNumbers": true
+  },
+  "development": {
+    "autoSave": true,
+    "formatOnSave": true,
+    "showLinting": true,
+    "enableTypeChecking": true,
+    "enableSyntaxHighlighting": true
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit:*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '🔍 Running pre-commit checks...' && bun check-types"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(git push:*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '🚀 Running pre-push checks...' && bun check-types && bun build"
+          }
+        ]
+      }
+    ]
+  }
+}
